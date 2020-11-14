@@ -1,4 +1,4 @@
-#include<unisd.h>
+#include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h> //문자열
@@ -25,5 +25,26 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 			printf("[+] input : %s\n", buf);
 		}
 
+		printf("\n");
+		sprintf(cmd, "python -c \'print \"%s\"\' | %s", buf, argv[1]);
+		printf("[+] cmd : %s", cmd);
+		int result = system(cmd);
+		printf("[+] Program Terminated\n");
+		printf("[+] result : %d\n", result);
+		if (result != 0)
+		{
+			printf("error!\n");
+			error++;
+			FILE* fp = fopen(argv[3], "a+");
+			fwrite(buf, sizeof(buf), 1, fp);
+			fclose(fp);
+		}
+		else
+		{
+			printf("good\n");
+			num++;
+		}
 	}
+	printf("[+] Fuzzing Done!\n");
+	printf("[+] error : %d\n", error);
 }
