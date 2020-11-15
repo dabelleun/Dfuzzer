@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 	while (num < 100) //num이 100미만일 동안 반복
 	{
 		unsigned char cmd[2024]; // 양수 2024바이트 문자형 cmd 배열 생성
-		sprintf(cmd, "echo %s | radamsa", argv[2]); //cmd 문자열에 'echo argv[2]=inputfile | radamsa'을 출력 (radamsa왜사용..?)
+		sprintf(cmd, "echo %s | radamsa", argv[2]); //cmd 문자열에 'echo argv[2]=inputfile | radamsa'을 저장?
 		FILE* stream = popen(cmd, "r"); //파일포인터 stream ; 파이프오픈? cmd(를) 파이프로 표준 풀력 내용을 읽기 위해 사용
 		
 		unsigned char buf[1024]; //양수 1024바이트 문자형 buf 배열 생성
@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 			printf("[+] input : %s\n", buf);//[+]input : buf문자열 출력
 		}
 		pclose(stream); //닫기
-		
+
 		int i;
 		printf("len : %d\n",strlen(buf)); //buf의 문자열 길이 출력
 		for(int i=0; i<strlen(buf);i++); //
@@ -38,12 +38,12 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 		}
 
 		printf("\n");
-		sprintf(cmd, "python -c \'print \"%s\"\' | %s", buf, argv[1]); // cmd문자열에 python -c'print"buf"' | argv[1]
+		sprintf(cmd, "python -c \'print \"%s\"\' | %s", buf, argv[1]); // cmd문자열에 python -c'print "buf"' | argv[1]
 		printf("[+] cmd : %s", cmd);// [+] cmd : cmd 문자열 출력
 		int result = system(cmd); //cmd을 result에 대입
 		printf("[+] Program Terminated\n");
 		printf("[+] result : %d\n", result); // [+] result : result값 출력
-		if (result != 0)
+		if (result != 0)		
 		{
 			printf("error!\n");
 			error++;
