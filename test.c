@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 		pclose(stream); //닫기
 		
 		printf("len : %d\n",strlen(buf)); //buf의 문자열 길이 출력
-		for(int i=0; i<strlen(buf);i++); //
+		for(int i=0; i<strlen;(buf);i++); //
 		{
 			printf("%2x",buf[i]);//buf[i]를 두자리 hexcode로 출력
 			if(buf[i] == '\x0a') //buf[i]가 줄바꿈되면
