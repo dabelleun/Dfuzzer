@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 	}
 	int num = 0;
 	int error = 0;
+	
 	printf("[+] Start Dumb Fuzzing....\n");
 
 	while (num < 100) //num이 100미만일 동안 반복
@@ -22,11 +23,20 @@ int main(int argc, char* argv[]) //argc와 argv배열 포인터를 인자로하�
 		unsigned char buf[1024]; //1024바이트 buf배열
 		if (stream != NULL) {
 			fgets(buf, 1024, stream); // fgets():파일에 문자열을 쓰는 함수 -> stream의 문자열을 최대 1024까지 읽어 buf에 담는다.
-			printf("[+] input : %s\n", buf);
+			printf("[+] input : %s\n", buf);//[+]input : buf값
+		}
+		pclose(stream);
+		
+		printf("len : %d\n",strlen(buf));
+		for(int i=0; i<strlen(buf);i++);
+		{
+			printf("%2x",buf[i]);
+			if(buf[i] == '\x0a')
+				buf[i]='\x00';
 		}
 
 		printf("\n");
-		sprintf(cmd, "python -c \'print \"%s\"\' | %s", buf, argv[1]);
+		sprintf(cmd, "python -c \'print \"%s\"\' | %s", buf, argv[1]); // cmd문자열에 python -c'print"buf"' | argv[1]
 		printf("[+] cmd : %s", cmd);
 		int result = system(cmd);
 		printf("[+] Program Terminated\n");
